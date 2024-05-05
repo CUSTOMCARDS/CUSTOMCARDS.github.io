@@ -15,6 +15,7 @@
       <ul>
         <li><a href="https://customcards.github.io">Home</a></li>
         <li><a href="https://customcards.github.io/Store">Store</a></li>
+        <li><a href="cart"><img src="cart-icon.png" alt="Cart"></a></li>
       </ul>
     </nav>
   </header>
@@ -23,17 +24,17 @@
     <h2>Our Store</h2>
     <div class="card-grid">
       <!-- Add your card products here -->
-      <div class="card">
+      <div class="card" data-name="Birthday Card" data-price="5.99">
         <img src="card1.jpg" alt="Card 1">
         <h3>Birthday Card</h3>
         <p>$5.99</p>
-        <a href="#" class="btn">Add to Cart</a>
+        <button onclick="addToCart('Birthday Card', 5.99)">Add to Cart</button>
       </div>
-      <div class="card">
+      <div class="card" data-name="Wedding Invitation" data-price="8.99">
         <img src="card2.jpg" alt="Card 2">
         <h3>Wedding Invitation</h3>
         <p>$8.99</p>
-        <a href="#" class="btn">Add to Cart</a>
+        <button onclick="addToCart('Wedding Invitation', 8.99)">Add to Cart</button>
       </div>
       <!-- Add more card products as needed -->
     </div>
@@ -42,5 +43,15 @@
   <footer>
     <p>&copy; 2024 Custom Cards. All rights reserved.</p>
   </footer>
+
+  <script>
+    function addToCart(name, price) {
+      var cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name: name, price: price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Item added to cart!");
+    }
+  </script>
 </body>
 </html>
+
