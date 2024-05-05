@@ -51,6 +51,10 @@
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Item added to cart!");
     }
+
+    window.onunload = function() {
+      localStorage.removeItem("cart");
+    }
   </script>
 </body>
 </html>
