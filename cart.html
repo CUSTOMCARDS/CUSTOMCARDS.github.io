@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Cards Cart</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>Custom Cards</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="cart.html"><img src="cart-icon.png" alt="Cart"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="cart">
+    <h2>Your Cart</h2>
+    <div class="cart-items">
+      <!-- Cart items will be displayed here -->
+    </div>
+    <button onclick="generateCode()">Generate Checkout Code</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Custom Cards. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.onload = function() {
+      displayCartItems();
+    }
+
+    function displayCartItems() {
+      var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      var cartContainer = document.querySelector(".cart-items");
+      cartContainer.innerHTML = "";
+      cartItems.forEach(function(item) {
+        var cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+        cartItem.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>$${item.price}</p>
+        `;
+        cartContainer.appendChild(cartItem);
+      });
+    }
+
+    function generateCode() {
+      var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      var code = generateRandomCode();
+      var description = "";
+
+      cartItems.forEach(function(item) {
+        description += `${item.name} - $${item.price}\n`;
+      });
+
+      localStorage.setItem("checkoutCode", JSON.stringify({ code: code, description: description }));
+      alert("Your checkout code is: " + code + "\nPlease send this code to your email for further instructions.");
+    }
+
+    function generateRandomCode() {
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var code = "";
+      for (var i = 0; i < 6; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return code;
+    }
+  </script>
+</body>
+</html>
